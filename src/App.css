@@ -1,38 +1,32 @@
-.App {
-  text-align: center;
+.card-header {
+  background-color: #3490f1 !important;
+  color: #ffffff;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.card {
+  border-radius: 20px !important;
+  width: 35%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.form-control:hover {
+  background-color: #f8f9fa;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+/* App.css or ViewContact.module.css */
+.card-header {
+  background-color: #007bff; /* Bootstrap primary color */
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.card {
+  transition: transform 0.2s; /* Animation for hover effect */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.card:hover {
+  transform: scale(1.03); /* Slightly enlarge cards on hover */
+}
+.viewContact {
+  max-height: 600px;
+  overflow-y: auto;
+  white-space: nowrap;
+  padding: 20px;
 }
