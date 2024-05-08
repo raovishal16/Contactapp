@@ -8,7 +8,7 @@ const Header = () => {
     <>
       <Navbar expand="lg" data-bs-theme="dark" bg="dark">
         <Container>
-          <Navbar.Brand href="#home">My Contacts</Navbar.Brand>
+          <Navbar.Brand href="#home">Contact App</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
