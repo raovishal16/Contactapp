@@ -16,6 +16,7 @@ const AddContact = () => {
   const [LNameError, setLnameError] = useState("");
   const [nickNameErro, setNikeNameError] = useState("");
   let [editableContact, setEditableContact] = useState(null);
+  let [searchData, setSearchData] = useState("");
   const data = {
     firstName: fName,
     lastName: lName,
@@ -27,16 +28,16 @@ const AddContact = () => {
   const emailRGX = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE3MTQ5NzA3OTk1MjQtNzQzMzIwODk2IiwiaWF0IjoxNzE0OTcwNzk5LCJleHAiOjE3MTUxNDM1OTl9.IMRYOIlngJ8cIn4dPtBlnyKO4IdHvpnXgMo3lApbBuY";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE3MTc3NDY2NTQ5NTgtMjgwMzIzNjM4IiwiaWF0IjoxNzE3NzQ2NjU0LCJleHAiOjE3MTc5MTk0NTR9.rHijffVR8JYZ8WqsicfMBbni1Y8ZOkbYDl3FedqdFiI";
   useEffect(() => {
     axios
       .get("https://service.apikeeda.com/contact-book", {
         headers: {
-          Authorization: `${token}`, // Attach the token as an Authorization header
+          Authorization: `${token}`,
         },
       })
       .then((response) => {
-        setFormData(response.data.data); // Set the fetched data into state
+        setFormData(response.data.data);
         console.log("Fetched data:", response.data.data);
       })
       .catch((error) => {
@@ -45,9 +46,9 @@ const AddContact = () => {
   }, [token]);
 
   const tokenofPOst =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE3MTQ5NzA4MTkzMzQtNTQ3Njg2MjIiLCJpYXQiOjE3MTQ5NzA4MTksImV4cCI6MTcxNTE0MzYxOX0.vAnvmMnAR3DvUMw6AnSMfkte2-E4OiLHS-symOAcbm0";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE3MTc3NDY2NzczNDctMTQ2NTcyODg5IiwiaWF0IjoxNzE3NzQ2Njc3LCJleHAiOjE3MTc5MTk0Nzd9.74RNGLoT1lO9fWqPNT3dRM5I0R4TOWkMENH4ByLvn0w";
   const UpdatToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE3MTUwNTYyMTM5OTgtNjE2NzI2NTM0IiwiaWF0IjoxNzE1MDU2MjEzLCJleHAiOjE3MTUyMjkwMTN9.meM_01Hxt_N-4XbI5l7HSIiKvryPjdZSYh_pMXCGep0";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE3MTc3NDY3MjE3MTEtODc0NDU2MzcwIiwiaWF0IjoxNzE3NzQ2NzIxLCJleHAiOjE3MTc5MTk1MjF9.U-vbNroJq8nD-7958yk-_fLqqfEi2pb0iOG2SL7wduk";
   const HandleSub = () => {
     let formValid = true;
 
@@ -157,6 +158,13 @@ const AddContact = () => {
     setNickName(contact.nickName || "");
     setEditableContact(contact);
   };
+
+  const filteredContacts = searchData
+    ? formData.filter((contact) =>
+        contact.phone.toLowerCase().includes(searchData.toLowerCase())
+      )
+    : formData;
+
   return (
     <>
       <div className="container my-5">
@@ -283,9 +291,18 @@ const AddContact = () => {
                 </div>
               </div>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-6 p-3">
+              <div className="search">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Search contact..."
+                  value={searchData}
+                  onChange={(e) => setSearchData(e.target.value)}
+                />
+              </div>
               <ViewContact
-                contact={formData}
+                contact={filteredContacts}
                 setContact={setFormData}
                 onEditContact={handleEditContact}
               />
